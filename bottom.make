@@ -23,6 +23,9 @@ $($(X_MODULE)_OUTPUT)/$(BINARY).a: $($(X_MODULE)_OBJS)
 	$(AR) r '$@' $^
 	ranlib '$@'
 
+$($(X_MODULE)_OUTPUT)/$(BINARY).so: $($(X_MODULE)_OBJS)
+	$(COMPILE.cc) -o '$@' $^
+
 $($(X_MODULE)_OUTPUT)/$(BINARY)$(X_EXEEXT): $($(X_MODULE)_OBJS)
 	$(LINK.c) $^ -o'$@'
 
