@@ -12,7 +12,7 @@ $(X_MODULE)_BINARY = $(addprefix $($(X_MODULE)_OUTPUT)/,$(BINARY))$(BINARY_EXT)
 
 # rules
 
-all:: $($(X_MODULE)_BINARY)
+#all:: $($(X_MODULE)_BINARY)
 $(X_MODULE): $($(X_MODULE)_BINARY)
 
 $($(X_MODULE)_OUTPUT)/%.o: $(X_MODULE)/%.c
@@ -26,8 +26,8 @@ $($(X_MODULE)_OUTPUT)/$(BINARY).a: $($(X_MODULE)_OBJS)
 	ranlib '$@'
 
 $($(X_MODULE)_OUTPUT)/$(BINARY).so: $($(X_MODULE)_OBJS)
-	$(COMPILE.cc) -o '$@' $^
+	$(CXX) $(CXXFLAGS) $(CPPFLAGS) $(TARGET_ARCH) -o '$@' $^ $(LDFLAGS)
 
 $($(X_MODULE)_OUTPUT)/$(BINARY)$(X_EXEEXT): $($(X_MODULE)_OBJS)
-	$(LINK.c) $^ -o'$@'
+	$(CXX) $(CXXFLAGS) $(CPPFLAGS) $(TARGET_ARCH) -o '$@' $^ $(LDFLAGS)
 
