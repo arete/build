@@ -1,7 +1,9 @@
 
 include build/$(X_SYSTEM).make
 
-$(X_MODULE)_OBJS = $(addsuffix $(X_OBJEXT),$(addprefix $($(X_MODULE)_OUTPUT)/,$(basename $(SRCS)))) $(DEPS)
+X_SRCS = $(filter-out $(NOT_SRCS), $(notdir $(wildcard $(X_MODULE)/*.cc $(X_MODULE)/*.c)))
+
+$(X_MODULE)_OBJS = $(addsuffix $(X_OBJEXT),$(addprefix $($(X_MODULE)_OUTPUT)/,$(basename $(notdir $(X_SRCS) $(SRCS))))) $(DEPS)
 
 $(X_MODULE)_BINARY = $(addprefix $($(X_MODULE)_OUTPUT)/,$(BINARY))$(BINARY_EXT)
 
