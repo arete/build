@@ -12,22 +12,29 @@ $(X_MODULE)_BINARY := $(addprefix $($(X_MODULE)_OUTPUT)/,$(BINARY))$(BINARY_EXT)
 
 # rules
 
+Q = @
+
 #all:: $($(X_MODULE)_BINARY)
 $(X_MODULE): $($(X_MODULE)_BINARY)
 
 $($(X_MODULE)_OUTPUT)/%.o: $(X_MODULE)/%.c
-	$(COMPILE.c) -o '$@' '$<'
+	@echo '  LINK C    $@'
+	$(Q)$(COMPILE.c) -o '$@' '$<'
 
 $($(X_MODULE)_OUTPUT)/%.o: $(X_MODULE)/%.cc
-	$(COMPILE.cc) -o '$@' '$<'
+	@echo '  LINK CXX  $@'
+	$(Q)$(COMPILE.cc) -o '$@' '$<'
 
 $($(X_MODULE)_OUTPUT)/$(BINARY).a: $($(X_MODULE)_OBJS)
-	$(AR) r '$@' $^
-	ranlib '$@'
+	@echo '  LINK LIB $@'
+	$(Q)$(AR) r '$@' $^
+	$(Q)ranlib '$@'
 
 $($(X_MODULE)_OUTPUT)/$(BINARY).so: $($(X_MODULE)_OBJS)
-	$(CXX) $(CXXFLAGS) $(CPPFLAGS) $(TARGET_ARCH) -shared -o '$@' $^ $(LDFLAGS)
+	@echo '  LINK DYN  $@'
+	$(Q)$(CXX) $(CXXFLAGS) $(CPPFLAGS) $(TARGET_ARCH) -shared -o '$@' $^ $(LDFLAGS)
 
 $($(X_MODULE)_OUTPUT)/$(BINARY)$(X_EXEEXT): $($(X_MODULE)_OBJS)
-	$(CXX) $(CXXFLAGS) $(CPPFLAGS) $(TARGET_ARCH) -o '$@' $^ $(LDFLAGS)
+	@echo '  LINK EXEC $@'
+	$(Q)$(CXX) $(CXXFLAGS) $(CPPFLAGS) $(TARGET_ARCH) -o '$@' $^ $(LDFLAGS)
 
