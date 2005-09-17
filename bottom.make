@@ -25,6 +25,9 @@ $($(X_MODULE)_OUTPUT)/%.o: $(X_MODULE)/%.cc
 	@echo '  LINK CXX  $@'
 	$(Q)$(COMPILE.cc) -o '$@' '$<'
 
+# only implicit rules if one binary per module ...
+ifeq ($(words $(BINARY)), 1)
+
 $($(X_MODULE)_OUTPUT)/$(BINARY).a: $($(X_MODULE)_OBJS)
 	@echo '  LINK LIB $@'
 	$(Q)$(AR) r '$@' $^
@@ -38,3 +41,4 @@ $($(X_MODULE)_OUTPUT)/$(BINARY)$(X_EXEEXT): $($(X_MODULE)_OBJS)
 	@echo '  LINK EXEC $@'
 	$(Q)$(CXX) $(CXXFLAGS) $(CPPFLAGS) $(TARGET_ARCH) -o '$@' $^ $(LDFLAGS)
 
+endif
