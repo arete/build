@@ -1,14 +1,26 @@
 
 include build/$(X_SYSTEM).make
 
-X_SRCS = $(filter-out $(NOT_SRCS), $(notdir $(wildcard $(X_MODULE)/*.cc $(X_MODULE)/*.c)))
+X_SRCS = $(filter-out $(NOT_SRCS), $(notdir $(wildcard $(X_MODULE)/*.cc $(X_MODULE)/*.c))) $(SRCS)
 
-$(X_MODULE)_OBJS := $(addsuffix $(X_OBJEXT),$(addprefix $($(X_MODULE)_OUTPUT)/,$(basename $(notdir $(X_SRCS) $(SRCS))))) $(DEPS)
+$(X_MODULE)_OBJS := $(addsuffix $(X_OBJEXT),$(addprefix $($(X_MODULE)_OUTPUT)/,$(basename $(X_SRCS)))) $(DEPS)
 
 $(X_MODULE)_BINARY := $(addprefix $($(X_MODULE)_OUTPUT)/,$(BINARY))$(BINARY_EXT)
 
+
+
+X_DEP_FILES := $(addsuffix .d,$(addprefix $($(X_MODULE)_OUTPUT)/,$(basename $(X_SRCS)))) # $(DEPS)
+
+
+
 # include build/$(X_ARCH).make
 # include build/$(X_CC).make
+
+# dependencies
+
+ifneq ($(X_DEP_FILES),)
+  -include $(X_DEP_FILES)
+endif
 
 # rules
 
@@ -23,7 +35,7 @@ $($(X_MODULE)_OUTPUT)/%.o: $(X_MODULE)/%.c
 
 $($(X_MODULE)_OUTPUT)/%.o: $(X_MODULE)/%.cc
 	@echo '  LINK CXX  $@'
-	$(Q)$(COMPILE.cc) -o '$@' '$<'
+	$(Q)$(COMPILE.cc) -MMD -MP -o '$@' '$<'
 
 # only implicit rules if one binary per module ...
 ifeq ($(words $(BINARY)), 1)
