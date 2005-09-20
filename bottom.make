@@ -26,7 +26,10 @@ endif
 
 Q = @
 
-#all:: $($(X_MODULE)_BINARY)
+ifneq ($(X_BUILD_IMPLICIT),0)
+  all:: $($(X_MODULE)_BINARY)
+endif
+
 $(X_MODULE): $($(X_MODULE)_BINARY)
 
 $($(X_MODULE)_OUTPUT)/%.o: $(X_MODULE)/%.c
@@ -54,3 +57,8 @@ $($(X_MODULE)_OUTPUT)/$(BINARY)$(X_EXEEXT): $($(X_MODULE)_OBJS)
 	$(Q)$(CXX) $(CXXFLAGS) $(CPPFLAGS) $(TARGET_ARCH) -o '$@' $^ $(LDFLAGS)
 
 endif
+
+%: %.o $(DEPS)
+	@echo '  LINK EXEC $@'
+	$(Q)$(CXX) $(CXXFLAGS) $(CPPFLAGS) $(TARGET_ARCH) -o '$@' $^ $(LDFLAGS) $(DEPS)
+
