@@ -44,8 +44,8 @@ $($(X_MODULE)_OUTPUT)/%.o: $(X_MODULE)/%.cc
 ifeq ($(words $(BINARY)), 1)
 
 $($(X_MODULE)_OUTPUT)/$(BINARY).a: $($(X_MODULE)_OBJS)
-	@echo '  LINK LIB $@'
-	$(Q)$(AR) r '$@' $^
+	@echo '  LINK LIB  $@'
+	$(Q)$(AR) r '$@' $^ > /dev/null
 	$(Q)ranlib '$@'
 
 $($(X_MODULE)_OUTPUT)/$(BINARY).so: $($(X_MODULE)_OBJS)
