@@ -45,7 +45,7 @@ ifeq ($(words $(BINARY)), 1)
 
 $($(X_MODULE)_OUTPUT)/$(BINARY).a: $($(X_MODULE)_OBJS)
 	@echo '  LINK LIB  $@'
-	$(Q)$(AR) r '$@' $^ > /dev/null
+	$(Q)$(AR) r '$@' $^ 2> /dev/null
 	$(Q)ranlib '$@'
 
 $($(X_MODULE)_OUTPUT)/$(BINARY).so: $($(X_MODULE)_OBJS)
@@ -58,7 +58,7 @@ $($(X_MODULE)_OUTPUT)/$(BINARY)$(X_EXEEXT): $($(X_MODULE)_OBJS)
 
 endif
 
-%: %.o $(DEPS)
+$($(X_MODULE)_OUTPUT)/%: $($(X_MODULE)_OUTPUT)/%.o $(DEPS)
 	@echo '  LINK EXEC $@'
-	$(Q)$(CXX) $(CXXFLAGS) $(CPPFLAGS) $(TARGET_ARCH) -o '$@' $^ $(LDFLAGS) $(DEPS)
+	$(Q)$(CXX) $(CXXFLAGS) $(CPPFLAGS) $(TARGET_ARCH) -o '$@' $^ $(LDFLAGS)
 
