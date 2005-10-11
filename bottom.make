@@ -33,11 +33,11 @@ endif
 $(X_MODULE): $($(X_MODULE)_BINARY)
 
 $($(X_MODULE)_OUTPUT)/%.o: $(X_MODULE)/%.c
-	@echo '  LINK C    $@'
+	@echo '  C         $@'
 	$(Q)$(COMPILE.c) -o '$@' '$<'
 
 $($(X_MODULE)_OUTPUT)/%.o: $(X_MODULE)/%.cc
-	@echo '  LINK CXX  $@'
+	@echo '  C++       $@'
 	$(Q)$(COMPILE.cc) -MMD -MP -o '$@' '$<'
 
 # only implicit rules if one binary per module ...
