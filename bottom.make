@@ -36,6 +36,10 @@ $($(X_MODULE)_OUTPUT)/%.o: $(X_MODULE)/%.c
 	@echo '  C         $@'
 	$(Q)$(COMPILE.c) -o '$@' '$<'
 
+$($(X_MODULE)_OUTPUT)/%.o: $($(X_MODULE)_OUTPUT)/%.cc
+	@echo '  C++       $@'
+	$(Q)$(COMPILE.cc) -I./ -MMD -MP -o '$@' '$<'
+
 $($(X_MODULE)_OUTPUT)/%.o: $(X_MODULE)/%.cc
 	@echo '  C++       $@'
 	$(Q)$(COMPILE.cc) -MMD -MP -o '$@' '$<'
