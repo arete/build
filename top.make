@@ -5,9 +5,11 @@ ifndef X_ALREADYLOADED
 all::
 
 X_SYSTEM := $(shell uname -s)
-X_ARCH := $(shell uname -ms | sed -e 's/ /-/g' -e 's/i.86/i386/')
+ifndef X_ARCH
+  X_ARCH := $(shell uname -m | sed -e 's/i.86/i386/')
+endif
 X_OUTTOP ?= .
-X_OUTARCH := $(X_OUTTOP)/$(X_ARCH)
+X_OUTARCH := $(X_OUTTOP)/$(X_SYSTEM)-$(X_ARCH)
 
 endif
 
