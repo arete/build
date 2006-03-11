@@ -25,7 +25,8 @@ ifndef X_ALREADYLOADED
 X_ALREADYLOADED = 1
 .PHONY: clean
 clean::
-	rm -rfv $(X_OUTARCH)
+	@echo "CLEANING $(X_OUTARCH)"
+	$(Q)rm -rf $(X_OUTARCH)
 
 .SUFFIXES:
 
