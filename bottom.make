@@ -28,6 +28,14 @@ Q = @
 
 ifneq ($(X_BUILD_IMPLICIT),0)
   all:: $($(X_MODULE)_BINARY)
+  install:: $($(X_MODULE)_BINARY)
+	$(Q)for x in $^; do \
+	  case $$x in \
+		*$(X_DYNEXT) ) echo INSTALL DYNLIB $$x; install $$x $(libdir) ;; \
+		*$(X_LIBEXT) ) ;; \
+		*$(X_EXEEXT) ) echo INSTALL EXEC   $$x; install $$x $(bindir) ;; \
+	  esac ;\
+	done
 endif
 
 $(X_MODULE): $($(X_MODULE)_BINARY)
