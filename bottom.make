@@ -47,12 +47,12 @@ $($(X_MODULE)_OUTPUT)/%.o: $(X_MODULE)/%.cc
 # only implicit rules if one binary per module ...
 ifeq ($(words $(BINARY)), 1)
 
-$($(X_MODULE)_OUTPUT)/$(BINARY).a: $($(X_MODULE)_OBJS)
+$($(X_MODULE)_OUTPUT)/$(BINARY)$(X_LIBEXT): $($(X_MODULE)_OBJS)
 	@echo '  LINK LIB  $@'
 	$(Q)$(AR) r '$@' $^ 2> /dev/null
 	$(Q)ranlib '$@'
 
-$($(X_MODULE)_OUTPUT)/$(BINARY).so: $($(X_MODULE)_OBJS)
+$($(X_MODULE)_OUTPUT)/$(BINARY)$(X_DYNEXT): $($(X_MODULE)_OBJS)
 	@echo '  LINK DYN  $@'
 	$(Q)$(CXX) $(CXXFLAGS) $(CPPFLAGS) $(TARGET_ARCH) -shared -o '$@' $^ $(LDFLAGS)
 
