@@ -60,7 +60,7 @@ $($(X_MODULE)_OUTPUT)/$(BINARY)$(X_LIBEXT): $($(X_MODULE)_OBJS)
 	$(Q)$(LD) -r -o '$@' $^ 2> /dev/null
 #	# no AR anymore due to static initilizers
 #	$(Q)$(AR) r '$@' $^ 2> /dev/null
-#	$(Q)ranlib '$@'
+#	$(Q)$(RANLIB) '$@'
 
 $($(X_MODULE)_OUTPUT)/$(BINARY)$(X_DYNEXT): $($(X_MODULE)_OBJS)
 	@echo '  LINK DYN  $@'
