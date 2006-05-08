@@ -6,7 +6,7 @@ all::
 
 X_SYSTEM := $(shell uname -s)
 ifndef X_ARCH
-  X_ARCH := $(shell uname -m | sed -e 's/i.86/i386/')
+  X_ARCH := $(shell uname -m)
 endif
 X_OUTTOP ?= .
 X_OUTARCH := $(X_OUTTOP)/$(X_SYSTEM)-$(X_ARCH)
