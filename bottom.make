@@ -41,15 +41,15 @@ $(X_MODULE): $($(X_MODULE)_BINARY)
 
 $($(X_MODULE)_OUTPUT)/%.o: $(X_MODULE)/%.c
 	@echo '  C         $@'
-	$(Q)$(COMPILE.c) -o '$@' '$<'
+	$(Q)$(COMPILE.c) $($(X_MODULE)_CFLAGS) -o '$@' '$<'
 
 $($(X_MODULE)_OUTPUT)/%.o: $($(X_MODULE)_OUTPUT)/%.cc
 	@echo '  C++       $@'
-	$(Q)$(COMPILE.cc) -I./ -MMD -MP -o '$@' '$<'
+	$(Q)$(COMPILE.cc) $($(X_MODULE)_CXXFLAGS) -I./ -MMD -MP -o '$@' '$<'
 
 $($(X_MODULE)_OUTPUT)/%.o: $(X_MODULE)/%.cc
 	@echo '  C++       $@'
-	$(Q)$(COMPILE.cc) -MMD -MP -o '$@' '$<'
+	$(Q)$(COMPILE.cc) $($(X_MODULE)_CFLAGS) -MMD -MP -o '$@' '$<'
 
 # only implicit rules if one binary per module ...
 ifeq ($(words $(BINARY)), 1)
@@ -63,14 +63,14 @@ $($(X_MODULE)_OUTPUT)/$(BINARY)$(X_LIBEXT): $($(X_MODULE)_OBJS)
 
 $($(X_MODULE)_OUTPUT)/$(BINARY)$(X_DYNEXT): $($(X_MODULE)_OBJS)
 	@echo '  LINK DYN  $@'
-	$(Q)$(CXX) $(CXXFLAGS) $(CPPFLAGS) $(TARGET_ARCH) -shared -o '$@' $^ $(LDFLAGS)
+	$(Q)$(CXX) $(CXXFLAGS) $(CPPFLAGS) $($(X_MODULE)_CXXFLAGS) $(TARGET_ARCH) -shared -o '$@' $^ $(LDFLAGS) $($(X_MODULE)_LDFLAGS)
 
 $($(X_MODULE)_OUTPUT)/$(BINARY)$(X_EXEEXT): $($(X_MODULE)_OBJS)
 	@echo '  LINK EXEC $@'
-	$(Q)$(CXX) $(CXXFLAGS) $(CPPFLAGS) $(TARGET_ARCH) -o '$@' $^ $(LDFLAGS)
+	$(Q)$(CXX) $(CXXFLAGS) $(CPPFLAGS) $($(X_MODULE)_CXXFLAGS) $(TARGET_ARCH) -o '$@' $^ $(LDFLAGS) $($(X_MODULE)_LDFLAGS)
 
 endif
 
 $($(X_MODULE)_OUTPUT)/%: $($(X_MODULE)_OUTPUT)/%.o $(DEPS)
 	@echo '  LINK EXEC $@'
-	$(Q)$(CXX) $(CXXFLAGS) $(CPPFLAGS) $(TARGET_ARCH) -o '$@' $^ $(LDFLAGS)
+	$(Q)$(CXX) $(CXXFLAGS) $(CPPFLAGS) $($(X_MODULE)_CXXFLAGS) $(TARGET_ARCH) -o '$@' $^ $(LDFLAGS) $($(X_MODULE)_LDFLAGS)
