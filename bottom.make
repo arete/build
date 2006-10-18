@@ -1,4 +1,3 @@
-
 include build/$(X_SYSTEM).make
 
 X_SRCS = $(filter-out $(NOT_SRCS), $(notdir $(wildcard $(X_MODULE)/*.cc $(X_MODULE)/*.c))) $(SRCS)
@@ -75,4 +74,3 @@ endif
 $($(X_MODULE)_OUTPUT)/%: $($(X_MODULE)_OUTPUT)/%.o $(DEPS)
 	@echo '  LINK EXEC $@'
 	$(Q)$(CXX) $(CXXFLAGS) $(CPPFLAGS) $(TARGET_ARCH) -o '$@' $^ $(LDFLAGS)
-
