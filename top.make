@@ -8,8 +8,12 @@ X_SYSTEM := $(shell uname -s)
 ifndef X_ARCH
   X_ARCH := $(shell uname -m)
 endif
+
 X_OUTTOP ?= .
-X_OUTARCH := $(X_OUTTOP)/$(X_SYSTEM)-$(X_ARCH)
+
+ifndef X_OUTARCH
+  X_OUTARCH := $(X_OUTTOP)/$(X_SYSTEM)-$(X_ARCH)
+endif
 
 endif
 
