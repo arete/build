@@ -56,7 +56,7 @@ ifeq ($(words $(BINARY)), 1)
 
 $($(X_MODULE)_OUTPUT)/$(BINARY)$(X_LIBEXT): $($(X_MODULE)_OBJS)
 	@echo '  LINK LIB  $@'
-	$(Q)$(LD) -r -o '$@' $^ 2> /dev/null
+	$(Q)$(LD) -r -o '$@' $^
 #	# no AR anymore due to static initilizers
 #	$(Q)$(AR) r '$@' $^ 2> /dev/null
 #	$(Q)$(RANLIB) '$@'
