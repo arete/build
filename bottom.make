@@ -30,9 +30,9 @@ ifneq ($(X_BUILD_IMPLICIT),0)
   install:: $($(X_MODULE)_BINARY)
 	$(Q)for x in $^; do \
 	  case $$x in \
-		*$(X_DYNEXT) ) echo INSTALL DYNLIB $$x; install $$x $(DESTDIR)$(libdir) ;; \
+		*$(X_DYNEXT) ) echo INSTALL DYNLIB $$x; install $$x $(DESTDIR)$(libdir)/ ;; \
 		*$(X_LIBEXT) ) ;; \
-		*$(X_EXEEXT) ) echo INSTALL EXEC   $$x; install $$x $(DESTDIR)$(bindir) ;; \
+		*$(X_EXEEXT) ) echo INSTALL EXEC   $$x; install $$x $(DESTDIR)$(bindir)/ ;; \
 	  esac ;\
 	done
 endif
