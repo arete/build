@@ -26,6 +26,7 @@ endif
 Q = @
 
 ifneq ($(X_BUILD_IMPLICIT),0)
+ifneq ($(X_NO_INSTALL),1)
   all:: $($(X_MODULE)_BINARY)
   install:: $($(X_MODULE)_BINARY)
 	$(Q)for x in $^; do \
@@ -35,6 +36,7 @@ ifneq ($(X_BUILD_IMPLICIT),0)
 		*$(X_EXEEXT) ) echo INSTALL EXEC   $$x; install $$x $(DESTDIR)$(bindir)/ ;; \
 	  esac ;\
 	done
+endif
 endif
 
 $(X_MODULE): $($(X_MODULE)_BINARY)
