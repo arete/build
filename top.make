@@ -9,6 +9,13 @@ ifndef X_ARCH
   X_ARCH := $(shell uname -m)
 endif
 
+#ifndef X_CPUS
+#  X_CPUS := $(shell (ls -d /sys/devices/system/cpu/cpu* 2>/dev/null || grep '^processor[[:blank:]]:' /proc/cpuinfo) | wc -l)
+#  ifeq ($(findstring -j,$(MAKEFLAGS)),)
+#    #MAKEFLAGS += -j $(X_CPUS)
+#  endif
+#endif
+
 X_OUTTOP ?= .
 
 ifndef X_OUTARCH
