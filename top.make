@@ -22,7 +22,7 @@ ifndef X_OUTARCH
   X_OUTARCH := $(X_OUTTOP)/$(X_SYSTEM)-$(X_ARCH)
 endif
 
-endif
+endif # X_ALREADYLOADED
 
 # makefiles and module name we are in
 X_MAKEFILES := $(filter-out %$.make,$(MAKEFILE_LIST))
@@ -33,6 +33,8 @@ $(X_MODULE)_OUTPUT := $(X_OUTARCH)/$(X_MODULE)
 # create that module output dir
 X_IGNORE := $(shell mkdir -p $($(X_MODULE)_OUTPUT))
 
+# initialize
+NOT_SRCS :=
 
 # the global clean target just once
 ifndef X_ALREADYLOADED
