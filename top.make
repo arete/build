@@ -34,6 +34,7 @@ $(X_MODULE)_OUTPUT := $(X_OUTARCH)/$(X_MODULE)
 X_IGNORE := $(shell mkdir -p $($(X_MODULE)_OUTPUT))
 
 # initialize
+SRCS :=
 NOT_SRCS :=
 
 # the global clean target just once
