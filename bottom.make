@@ -43,15 +43,15 @@ $(X_MODULE): $($(X_MODULE)_BINARY)
 
 $($(X_MODULE)_OUTPUT)/%.o: $(X_MODULE)/%.c
 	@echo '  C         $@'
-	$(Q)$(COMPILE.c) $($(dir $@)CFLAGS) -MMD -MP -o '$@' '$<'
+	$(Q)$(COMPILE.c) $($(dir $@)CFLAGS) -MMD -MP -MF '$(patsubst %.o,%.d,$@)' -o '$@' '$<'
 
 $($(X_MODULE)_OUTPUT)/%.o: $($(X_MODULE)_OUTPUT)/%.cc
 	@echo '  C++       $@'
-	$(Q)$(COMPILE.cc) $($(dir $@)CXXFLAGS) -MMD -MP -o '$@' '$<'
+	$(Q)$(COMPILE.cc) $($(dir $@)CXXFLAGS) -MMD -MP -MF '$(patsubst %.o,%.d,$@)' -o '$@' '$<'
 
 $($(X_MODULE)_OUTPUT)/%.o: $(X_MODULE)/%.cc
 	@echo '  C++       $@'
-	$(Q)$(COMPILE.cc) $($(dir $@)CXXFLAGS) -MMD -MP -o '$@' '$<'
+	$(Q)$(COMPILE.cc) $($(dir $@)CXXFLAGS) -MMD -MP -MF '$(patsubst %.o,%.d,$@)' -o '$@' '$<'
 
 # only implicit rules if one binary per module ...
 ifeq ($(words $(BINARY)), 1)
