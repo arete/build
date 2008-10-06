@@ -1,6 +1,6 @@
 include build/$(X_SYSTEM).make
 
-X_SRCS = $(filter-out $(NOT_SRCS), $(notdir $(wildcard $(X_MODULE)/*.cc $(X_MODULE)/*.c))) $(SRCS)
+X_SRCS = $(filter-out $(NOT_SRCS), $(notdir $(wildcard $(X_MODULE)/*.cc $(X_MODULE)/*.c $(X_MODULE)/*.m $(X_MODULE)/*.mm))) $(SRCS)
 
 $(X_MODULE)_OBJS := $(addsuffix $(X_OBJEXT),$(addprefix $($(X_MODULE)_OUTPUT)/,$(basename $(X_SRCS)))) $(DEPS)
 
@@ -45,12 +45,20 @@ $($(X_MODULE)_OUTPUT)/%.o: $(X_MODULE)/%.c
 	@echo '  C         $@'
 	$(Q)$(COMPILE.c) $($(dir $@)CFLAGS) -MMD -MP -MF '$(patsubst %.o,%.d,$@)' -o '$@' '$<'
 
+$($(X_MODULE)_OUTPUT)/%.o: $(X_MODULE)/%.m
+	@echo '  ObjC      $@'
+	$(Q)$(COMPILE.c) $($(dir $@)CFLAGS) -MMD -MP -MF '$(patsubst %.o,%.d,$@)' -o '$@' '$<'
+
 $($(X_MODULE)_OUTPUT)/%.o: $($(X_MODULE)_OUTPUT)/%.cc
 	@echo '  C++       $@'
 	$(Q)$(COMPILE.cc) $($(dir $@)CXXFLAGS) -MMD -MP -MF '$(patsubst %.o,%.d,$@)' -o '$@' '$<'
 
 $($(X_MODULE)_OUTPUT)/%.o: $(X_MODULE)/%.cc
 	@echo '  C++       $@'
+	$(Q)$(COMPILE.cc) $($(dir $@)CXXFLAGS) -MMD -MP -MF '$(patsubst %.o,%.d,$@)' -o '$@' '$<'
+
+$($(X_MODULE)_OUTPUT)/%.o: $(X_MODULE)/%.mm
+	@echo '  ObjC++    $@'
 	$(Q)$(COMPILE.cc) $($(dir $@)CXXFLAGS) -MMD -MP -MF '$(patsubst %.o,%.d,$@)' -o '$@' '$<'
 
 # only implicit rules if one binary per module ...
