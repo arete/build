@@ -77,10 +77,10 @@ $($(X_MODULE)_OUTPUT)/$(BINARY)$(X_DYNEXT): $($(X_MODULE)_OBJS)
 
 $($(X_MODULE)_OUTPUT)/$(BINARY)$(X_EXEEXT): $($(X_MODULE)_OBJS)
 	@echo '  LINK EXEC $@'
-	$(Q)$(CXX) $(CXXFLAGS) $(CPPFLAGS) $($(dir $@)CXXFLAGS) $(TARGET_ARCH) -o '$@' $^ $(LDFLAGS) $($(dir $@)LDFLAGS)
+	$(Q)$(CXX) $(CXXFLAGS) $(CPPFLAGS) $($(dir $@)CXXFLAGS) $(TARGET_ARCH) $(X_EXEFLAGS) -o '$@' $^ $(LDFLAGS) $($(dir $@)LDFLAGS)
 
 endif
 
 $($(X_MODULE)_OUTPUT)/%: $($(X_MODULE)_OUTPUT)/%.o $(DEPS)
 	@echo '  LINK EXEC $@'
-	$(Q)$(CXX) $(CXXFLAGS) $(CPPFLAGS) $($(dir $@)CXXFLAGS) $(TARGET_ARCH) -o '$@' $^ $(LDFLAGS) $($(dir $@)LDFLAGS)
+	$(Q)$(CXX) $(CXXFLAGS) $(CPPFLAGS) $($(dir $@)CXXFLAGS) $(TARGET_ARCH) $(X_EXEFLAGS) -o '$@' $^ $(LDFLAGS) $($(dir $@)LDFLAGS)
